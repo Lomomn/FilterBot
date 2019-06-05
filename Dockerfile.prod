@@ -1,12 +1,10 @@
 FROM node:8-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/
+COPY package*.json yarn.* /usr/src/app/
+RUN yarn install
 
-COPY package.json .
-RUN yarn install --production=true
+ENV NODE_ENV=production
 
-COPY . .
-
-EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+COPY . /usr/src/app/
+CMD ["yarn", "start"]
