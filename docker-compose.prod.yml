@@ -8,6 +8,6 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - ./:/usr/src/app
-      - ./node_modules:/usr/src/app/node_modules
+      - node_modules
     ports:
       - "3000:3000"
