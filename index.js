@@ -8,6 +8,8 @@ client.on('ready', () => {
 });
 
 function checkContent(message){
+  if (message.pinned)
+    return false // Don't delete pinned messages
   if (message.attachments.size > 0){
     return false
   }
@@ -25,8 +27,6 @@ function checkContent(message){
 client.on('message', msg => {
   if (!msg.channel.permissionsFor(client.user).has(Discord.Permissions.FLAGS.MANAGE_MESSAGES))
     return false
-  if (msg.pinned)
-    return false // Don't delete pinned messages
 
   if (msg.content === 'purge') {
     const channel = msg.channel
