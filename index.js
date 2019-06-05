@@ -4,7 +4,7 @@ require('dotenv').config()
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity('you', {type: 'WATCHING'})
+  client.user.setActivity('Rocket League highlights', {type: 'WATCHING'})
 });
 
 function checkContent(message){
@@ -13,14 +13,13 @@ function checkContent(message){
   if (message.attachments.size > 0){
     return false
   }
-  if (message.embeds.length > 0){
-    const giphyRegex = RegExp('http(s)?://media.giphy.com/media/')
-    const gygRegex = RegExp('http(s)?://(www.)?gifyourgame.com/')
 
-    if (giphyRegex.test(message.content) || gygRegex.test(message.content))
-      return false
-  }
+  const giphyRegex = RegExp('http(s)?://media.giphy.com/media/')
+  const gygRegex = RegExp('http(s)?://(www.)?gifyourgame.com/')
 
+  if (giphyRegex.test(message.content) || gygRegex.test(message.content))
+    return false
+  
   return true
 }
 
@@ -31,7 +30,7 @@ client.on('message', msg => {
   if (msg.content === 'purge') {
     const channel = msg.channel
     channel.fetchMessages({limit: 100}).then(
-      messages => messages.forEach(message => checkContent(message) && message.delete() )
+      messages => messages.forEach(message => checkContent(message) && message.delete())
     )
   }
   else{
